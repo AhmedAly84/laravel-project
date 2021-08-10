@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -18,15 +19,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+//for category route
 Route::get('category/all', [CategoryController::class, 'allCat'])->name('category.all');
 Route::post('category/add', [CategoryController::class, 'addCat'])->name('category.add');
-Route::post('brand/all', [CategoryController::class, 'addCat'])->name('brand.add');
+
 Route::get('category/edit/{id}', [CategoryController::class, 'Edit']);
 Route::get('category/softdelet/{id}', [CategoryController::class, 'SoftDelet']);
 Route::get('category/delet/{id}', [CategoryController::class, 'Delet']);
 Route::get('category/restore/{id}', [CategoryController::class, 'Restore']);
 Route::post('category/update/{id}', [CategoryController::class, 'Update']);
-
+//for brand route
+Route::get('brand/all', [BrandController::class, 'AllBrand'])->name('brand.all');
+Route::post('brand/add', [BrandController::class, 'addBrand'])->name('brand.add');
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users = User::paginate(4);
     return view('dashboard', compact('users'));
